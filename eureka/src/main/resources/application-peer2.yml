@@ -1,0 +1,32 @@
+management:
+  endpoint:
+    health:
+      # 为health端点配置显示详情
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        # 暴露metrics端点，如需暴露多个，用,分隔；如需暴露所有端点，用'*'
+        include: "*"
+server:
+  port: 8762
+spring:
+  profiles: peer2
+  boot:
+    admin:
+      client:
+        url: "http://localhost:8000"
+  security:
+    user:
+      name: admin #配置登录的账号
+      password: admin #配置登录的密码
+eureka:
+  instance:
+    hostname: peer2
+  client:
+    #是否要注册到其他Eureka Server实例
+    register-with-eureka: true
+    #是否要从其他Eureka Server实例获取数据
+    fetch-registry: true
+    service-url:
+      defaultZone: http://admin:admin@peer1:8761/eureka/
